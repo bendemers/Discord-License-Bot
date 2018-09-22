@@ -35,7 +35,7 @@ async def on_message(message):
             if message1.author == message.author:
                 member = message1.author
         server = client.get_server('475519440448913418')
-        role = discord.utils.get(server.roles, name= 'monitor access')
+        role = discord.utils.get(server.roles, name= 'lifetime')
         with open('cookcove.csv', 'rt') as f:
             reader = csv.reader(f, delimiter=',')
             for row in reader:
