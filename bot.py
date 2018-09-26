@@ -1,9 +1,18 @@
 import discord
 import asyncio
 import csv
+import pandas as pd
+import requests
+import os
+import urllib
 
 found = False
 client = discord.Client()
+
+url='https://docs.google.com/spreadsheets/d/10cgQNGKzKVcu2dKs4zQgdthwCrwHimpI_Rst6mnulbI/export?format=csv'
+response = requests.get(url)
+with open(os.path.join("folder", "cookcove.csv"), 'wb') as f:
+    f.write(response.content)
 
 message_list = []
 message_count = 0
@@ -35,7 +44,7 @@ async def on_message(message):
             if message1.author == message.author:
                 member = message1.author
         server = client.get_server('475519440448913418')
-        role = discord.utils.get(server.roles, name= 'lifetime')
+        role = discord.utils.get(server.roles, name= 'monitor access')
         with open('cookcove.csv', 'rt') as f:
             reader = csv.reader(f, delimiter=',')
             for row in reader:
