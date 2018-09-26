@@ -1,7 +1,6 @@
 import discord
 import asyncio
 import csv
-import pandas as pd
 import requests
 import os
 import urllib
