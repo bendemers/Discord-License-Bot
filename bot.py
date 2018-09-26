@@ -1,13 +1,13 @@
 import discord
 import asyncio
 import csv
+import pandas as pd
 import requests
 import os
 import urllib
 
 found = False
 client = discord.Client()
-
 
 
 message_list = []
@@ -42,25 +42,23 @@ async def on_message(message):
         server = client.get_server('475519440448913418')
         role = discord.utils.get(server.roles, name= 'monitor access')
         url='https://docs.google.com/spreadsheets/d/10cgQNGKzKVcu2dKs4zQgdthwCrwHimpI_Rst6mnulbI/export?format=csv'
-        response = requests.get(url)
-        with open(os.path.join("folder", "cookcove.csv"), 'wb') as f:
-            f.write(response.content)
-        with open('folder/cookcove.csv', 'rt') as f:
-            reader = csv.reader(f, delimiter=',')
-            for row in reader:
-                if email == row[0]:  # if the username shall be on column 3 (-> index 2)
-                    await client.add_roles(member, role)
-                    print(member)
-                    print(role)
-                    print("Role added!")
-                    not_found = False
-                    print(not_found)
-                    await client.send_message(member, "Added!")
-                    return
-                else:
-                    not_found= True
-        if not_found:
-            await client.send_message(message.author, "Please do !email!")          
+        r = requests.get(url)
+        text = r.iter_lines()
+        reader = csv.reader(text, delimiter=',')
+        for row in reader:
+            if email == row[0]:  # if the username shall be on column 3 (-> index 2)
+                await client.add_roles(member, role)
+                print(member)
+                print(role)
+                print("Role added!")
+                not_found = False
+                print(not_found)
+                await client.send_message(member, "Added!")
+                return
+            else:
+                not_found= True
+    if not_found:
+        await client.send_message(message.author, "Please do !email!")          
 
 
 
