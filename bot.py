@@ -2,6 +2,7 @@ import discord
 import asyncio
 import csv
 import requests
+import pandas as pd
 import os
 import urllib
 
@@ -41,9 +42,7 @@ async def on_message(message):
         server = client.get_server('475519440448913418')
         role = discord.utils.get(server.roles, name= 'monitor access')
         url='https://docs.google.com/spreadsheets/d/10cgQNGKzKVcu2dKs4zQgdthwCrwHimpI_Rst6mnulbI/export?format=csv'
-        r = requests.get(url)
-        text = r.iter_lines()
-        reader = csv.reader(text, delimiter=',')
+        reader = pd.io.parsers.read_csv(url)
         for row in reader:
             if email == row[0]:  # if the username shall be on column 3 (-> index 2)
                 await client.add_roles(member, role)
