@@ -4,12 +4,12 @@ import csv
 import requests
 import pandas as pd
 import os
-import urllib
+import io
 
 found = False
 client = discord.Client()
 
-
+url='https://docs.google.com/spreadsheets/d/10cgQNGKzKVcu2dKs4zQgdthwCrwHimpI_Rst6mnulbI/export?format=csv'
 message_list = []
 message_count = 0
 target_server_id = '482754678979821569'
@@ -29,6 +29,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content.startswith('!email'):
+        print("!email sent")
         message_list.append(message)
         await client.send_message(message_list[len(message_list)-1].author, "Welcome to Cook Cove! What is your email?")
         await client.delete_message(message)
@@ -41,10 +42,10 @@ async def on_message(message):
                 member = message1.author
         server = client.get_server('475519440448913418')
         role = discord.utils.get(server.roles, name= 'monitor access')
-        url='https://docs.google.com/spreadsheets/d/10cgQNGKzKVcu2dKs4zQgdthwCrwHimpI_Rst6mnulbI/export?format=csv'
-        reader = pd.io.parsers.read_csv(url)
-        for row in reader:
-            if email == row[0]:  # if the username shall be on column 3 (-> index 2)
+        s = requests.get(url).content
+        reader = pd.read_csv(io.StringIO(s.decode('utf-8')))
+        for index, row in pd.DataFrame(reader).iterrows():
+            if email == row[0]:
                 await client.add_roles(member, role)
                 print(member)
                 print(role)
