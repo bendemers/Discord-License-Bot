@@ -1,12 +1,16 @@
 import csv
-import urllib
+import urllib3
 import os
 import requests
+import pandas as pd
+import io
 
-email = input()
 
 url='https://docs.google.com/spreadsheets/d/10cgQNGKzKVcu2dKs4zQgdthwCrwHimpI_Rst6mnulbI/export?format=csv'
-r = requests.get(url)
-text = r.iter_lines()
-reader = csv.reader(text, delimiter=',')
-print(reader.content)
+email = "ben@cookcove.com"
+
+s = requests.get(url).content
+reader = pd.read_csv(io.StringIO(s.decode('utf-8')))
+for index, row in pd.DataFrame(reader).iterrows():
+    if email == row[0]:
+        print("YEET!")
