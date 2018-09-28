@@ -28,7 +28,7 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-    if message.content.startswith('!email'):
+    if message.content.startswith('!access'):
         print("!email sent")
         message_list.append(message)
         await client.send_message(message_list[len(message_list)-1].author, "Welcome to Cook Cove! What is your email?")
