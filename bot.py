@@ -57,7 +57,7 @@ async def on_message(message):
             else:
                 not_found= True
     if not_found:
-        await client.send_message(message.author, "Please do !email!")          
+        await client.send_message(message.author, "User not found! Please makes sure you have done !access in the welcome channel and that your email is exactly what you entered to sign up with.")          
 
 
 
