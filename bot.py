@@ -21,7 +21,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    await client.change_presence(game=discord.Game(name='!email for a role'))
+    await client.change_presence(game=discord.Game(name='Do !access for a role'))
 #def search_email(email):
 
 @client.event
@@ -29,7 +29,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content.startswith('!access'):
-        print("!email sent")
+        print("!access")
         message_list.append(message)
         await client.send_message(message_list[len(message_list)-1].author, "Welcome to Cook Cove! What is your email?")
         await client.delete_message(message)
