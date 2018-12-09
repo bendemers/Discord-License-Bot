@@ -12,7 +12,7 @@ client = discord.Client()
 url='https://docs.google.com/spreadsheets/d/10cgQNGKzKVcu2dKs4zQgdthwCrwHimpI_Rst6mnulbI/export?format=csv'
 message_list = []
 message_count = 0
-target_server_id = '482754678979821569'
+target_server_id = '521407211319328786'
 target_role_id = '&490541302111535151'
 
 @client.event
@@ -40,8 +40,8 @@ async def on_message(message):
         for message1 in message_list:
             if message1.author == message.author:
                 member = message1.author
-        server = client.get_server('475519440448913418')
-        role = discord.utils.get(server.roles, name= 'monitor access')
+        server = client.get_server('521407211319328786')
+        role = discord.utils.get(server.roles, name= 'Monitor Access')
         s = requests.get(url).content
         reader = pd.read_csv(io.StringIO(s.decode('utf-8')))
         for index, row in pd.DataFrame(reader).iterrows():
