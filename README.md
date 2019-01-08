@@ -1,3 +1,5 @@
 Download and run!
 
-Be sure to replace server ID and role name
+# Setup
+Install all requirements
+Replace server ID, spreadsheet location, token, and role name
