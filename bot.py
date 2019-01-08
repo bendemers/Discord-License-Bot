@@ -9,11 +9,10 @@ import io
 found = False
 client = discord.Client()
 
-url='https://docs.google.com/spreadsheets/d/10cgQNGKzKVcu2dKs4zQgdthwCrwHimpI_Rst6mnulbI/export?format=csv'
+url=''
 message_list = []
 message_count = 0
-target_server_id = '521407211319328786'
-target_role_id = '&490541302111535151'
+target_server_id = ''
 
 @client.event
 async def on_ready():
@@ -31,17 +30,17 @@ async def on_message(message):
     if message.content.startswith('!access'):
         print("!access")
         message_list.append(message)
-        await client.send_message(message_list[len(message_list)-1].author, "Welcome to Cook Cove! What is your email?")
+        await client.send_message(message_list[len(message_list)-1].author, "Welcome to the server! What is your email?")
         await client.delete_message(message)
         return
-    if message.content.find('@'):
+    if message.content.find(''):
         email = message.content
         print(email)
         for message1 in message_list:
             if message1.author == message.author:
                 member = message1.author
-        server = client.get_server('521407211319328786')
-        role = discord.utils.get(server.roles, name= 'Monitor Access')
+        server = client.get_server(server_id)
+        role = discord.utils.get(server.roles, name= '')
         s = requests.get(url).content
         reader = pd.read_csv(io.StringIO(s.decode('utf-8')))
         for index, row in pd.DataFrame(reader).iterrows():
@@ -61,4 +60,4 @@ async def on_message(message):
 
 
 
-client.run('NDkwNTMyOTkwMjg0MzMzMDY2.Dn9G6w.FfafT_r93g7jlF8zXWb5ueALbk8')
+client.run('')
